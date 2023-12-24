@@ -477,6 +477,7 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
             debugPoly = false,
             minZ = Config.DropSpot.z,
             maxZ = Config.DropSpot.z+2,
+                },{
             options = {
             {
                 num = 1,
