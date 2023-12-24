@@ -14,6 +14,8 @@ Config.StartDeliveryPed = {
 
 Config.Vehicle = 'stockade'
 
+Config.Use3DMarker = true
+
 Config.VehicleSpawns = {
     vector4(-32.41, -670.52, 31.34, 187.86),
     vector4(-36.74, -671.4, 31.34, 186.63),
@@ -31,6 +33,7 @@ Config.BagSpawns = {
 }
 
 Config.DropSpot = vector3(-9.58, -654.66, 32.91)
+
 
 
 Config.MoneyType = 'bank'
