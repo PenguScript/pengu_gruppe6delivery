@@ -159,11 +159,15 @@ RegisterNetEvent('pengu_gruppe6delivery:RequestModel', function(model)
 end)
 
 RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
-    TriggerEvent('pengu_gruppe6delivery:Notify', "Go to the vehicle with the marker above it!", "There's an orange marker above the vehicle you are going to use.", "primary", 4000)
+    if Config.Use3DMarker == true then
+        TriggerEvent('pengu_gruppe6delivery:Notify', "Go to the vehicle with the marker above it!", "There's an orange marker above the vehicle you are going to use.", "primary", 4000)
+    else
+        TriggerEvent('pengu_gruppe6delivery:Notify', "Go to your vehicle!", "You now have the keys.", "primary", 4000)
+    end
     local vehicle = args["veh"]
     DoingDeliveries = true
     TriggerEvent("vehiclekeys:client:SetOwner", args["plate"])
-    while not IsPedSittingInAnyVehicle(GetPlayerPed(-1)) and DoingDeliveries == true do
+    while not IsPedSittingInAnyVehicle(GetPlayerPed(-1)) and DoingDeliveries == true and Config.Use3DMarker == true do
         DrawMarker(2, args["vec"].x, args["vec"].y, args["vec"].z+3.65, 0.0,0.0,0.0,0.0,180.0,0.0,1.0,1.0,1.0,255,165,0,70,true,false, 2, true, nil, nil, false)
         Wait(1)
     end
