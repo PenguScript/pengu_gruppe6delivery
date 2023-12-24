@@ -471,11 +471,8 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
     SetBlipRoute(destination, true)
 
         if Config.Target == 'qb' then
-        exports['qb-target']:AddBoxZone({
-            name = 'dropspot',
-            coords = vector3(Config.DropSpot),
-            length = 1.5,
-            width = 2.0,
+        exports['qb-target']:AddBoxZone("dropspot", vector3(Config.DropSpot), 1.5, 2.0, {
+            name = "dropspot",
             heading = 0.0,
             debugPoly = false,
             minZ = Config.DropSpot.z,
