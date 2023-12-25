@@ -6,7 +6,7 @@ Config.Menu = 'ox' -- 'qb' or 'ox'
 Config.Progressbar = 'ox' -- 'qb' or 'ox'
 
 Config.StartDeliveryPed = {
-    Coords = vector4(-453.22, -659.18, 32.48, 183.34),
+    Coords = vector4(-4.22, -659.18, 32.48, 183.34),
     Label = "Jimmy From Gruppe 6",
     Model = 'mp_s_m_armoured_01',
     Icon = 'fas fa-briefcase',
