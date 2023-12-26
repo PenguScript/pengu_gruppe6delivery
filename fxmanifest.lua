@@ -1,8 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-GarbageJob'
-version '1.2.0'
+description 'pengu_gruppe6delivery'
+version '1.0.2'
 
 shared_scripts {
 	'config.lua',
@@ -17,7 +17,8 @@ client_script {
 	'@PolyZone/EntityZone.lua',
 	'@PolyZone/CircleZone.lua',
 	'@PolyZone/ComboZone.lua',
-	'client/main.lua'
+	'client/delivery.lua',
+	'client/organize.lua'
 }
 server_script 'server/main.lua'
 
