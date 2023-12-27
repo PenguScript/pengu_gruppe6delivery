@@ -212,7 +212,7 @@ RegisterNetEvent('pengu_gruppe6delivery:OrganizeSafeDepositBoxes', function(data
             Wait(1)
         end
 
-        TaskPlayAnim(cache.ped or GetPlayerPed(-1), 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@', 'machinic_loop_mechandplayer', 6.0, -6.0, -1, 49, 0, 0, 0, 0)
+        TaskPlayAnim(cache.ped or PlayerPedId(), 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@', 'machinic_loop_mechandplayer', 6.0, -6.0, -1, 49, 0, 0, 0, 0)
         if lib.skillCheck({"easy", "easy", "easy"}, {"e"}) then
             TriggerEvent('pengu_gruppe6delivery:Notify', "You Organized the Safe Deposit Box", nil, 'success', 3000)
 
@@ -220,7 +220,7 @@ RegisterNetEvent('pengu_gruppe6delivery:OrganizeSafeDepositBoxes', function(data
             TriggerEvent('pengu_gruppe6delivery:Notify', "You Made a Mess Instead...", nil, 'error', 3000)
             Failed = true
         end
-        StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+        StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
         Config.OrganizerLocations[data.args].active = false
     end
 end)
