@@ -222,6 +222,7 @@ RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
     local vehicle = args["veh"]
     DoingDeliveries = true
     TriggerEvent("vehiclekeys:client:SetOwner", args["plate"])
+    exports[Config.FuelResource]:SetFuel(vehicle, 100)
     while not IsPedSittingInAnyVehicle(GetPlayerPed(-1)) and DoingDeliveries == true do
         DrawMarker(2, args["vec"].x, args["vec"].y, args["vec"].z+3.65, 0.0,0.0,0.0,0.0,180.0,0.0,1.0,1.0,1.0,255,165,0,70,true,false, 2, true, nil, nil, false)
         Wait(1)
