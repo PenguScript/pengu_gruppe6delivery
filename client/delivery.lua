@@ -1,9 +1,9 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local DoingDeliveries = false
+DoingDeliveries = false
 local busy = false
-local destination
-local zoneid
-local TotalBagsDelivered = 0
+destination = nil
+zoneid = nil
+TotalBagsDelivered = 0
 
 CreateThread(function()
     local blip = AddBlipForCoord(249.1, -1027.36, 28.28)
@@ -24,11 +24,18 @@ RegisterNetEvent('pengu_gruppe6delivery:StopDeliveries', function()
         RemoveBlip(destination)
         destination = nil
     end
-    if TotalBagsDelivered > 0 then
-        TriggerServerEvent('pengu_gruppe6delivery:RecievePaycheck', TotalBagsDelivered)
-        Wait(1)
-        TotalBagsDelivered = 0
+    if TotalBagsDelivered > 0 or TotalOrganized > 0 then
+        if not Organizing then
+            TriggerServerEvent('pengu_gruppe6delivery:RecievePaycheck', TotalBagsDelivered, TotalOrganized)
+            Wait(1)
+            TotalBagsDelivered = 0
+            TotalOrganized = 0
+        end
     end
+    if Organizing == true then
+        TriggerEvent('pengu_gruppe6delivery:StopOrganizing')
+    end
+    TriggerServerEvent('pengu_gruppe6delivery:DeleteVehicle')
 end)
 
 RegisterNetEvent('pengu_gruppe6delivery:Notify', function(title, var1, var2, var3)
@@ -51,24 +58,49 @@ CreateThread(function()
             options = {
                 {
                     title = "Start Working",
-                    description = "Start Delivering High-Value Packages!",
+                    description = "Clock on duty at Gruppe 6!",
                     icon = "fas fa-box",
                     serverEvent = "pengu_gruppe6delivery:ToggleIsOnDuty",
                 }
             }
         })
         lib.registerContext({
-            id = "gruppe6jobmenustop",
+            id = "gruppe6jobmenustopstart",
             title = "Gruppe 6 Job Menu",
             options = {
                 {
                     title = "Stop Working",
-                    description = "Stop Delivering High-Value Packages!",
+                    description = "Clock off duty at Gruppe 6!",
                     icon = "fas fa-box",
                     serverEvent = "pengu_gruppe6delivery:ToggleIsOnDuty",
+                },
+                {
+                    title = "Start Delivering Bags",
+                    description = "Start retrieving bags of cash.",
+                    icon = "fas fa-box",
+                    serverEvent = "pengu_gruppe6delivery:SpawnVehicle",
                 }
             }
         })
+        lib.registerContext({
+            id = "gruppe6jobmenustopstop",
+            title = "Gruppe 6 Job Menu",
+            options = {
+                {
+                    title = "Stop Working",
+                    description = "Clock off duty at Gruppe 6!",
+                    icon = "fas fa-box",
+                    serverEvent = "pengu_gruppe6delivery:ToggleIsOnDuty",
+                },
+                {
+                    title = "Stop Delivering Bags",
+                    description = "Stop retrieving bags of cash.",
+                    icon = "fas fa-box",
+                    event = "pengu_gruppe6delivery:StopDeliveries",
+                }
+            }
+        })
+
     end
     local model = Config.StartDeliveryPed.Model
     local loc = Config.StartDeliveryPed.Coords
@@ -137,6 +169,26 @@ RegisterNetEvent('pengu_gruppe6delivery:OpenGruppe6JobMenu', function(data)
                         isServer = true,
                     }
                 }
+                if DoingDeliveries then
+                    menu[#menu+1] = {
+                        header = "Stop Delivering Bags",
+                        txt = "Stop retrieving bags of cash.",
+                        icon = "fas fa-box",
+                        params = {
+                            event = "pengu_gruppe6delivery:StopDeliveries",
+                        }
+                    }
+                else
+                    menu[#menu+1] = {
+                        header = "Start Delivering Bags",
+                        txt = "Start retrieving bags of cash.",
+                        icon = "fas fa-box",
+                        params = {
+                            event = "pengu_gruppe6delivery:SpawnVehicle",
+                            isServer = true,
+                        }
+                    }
+                end
             end
             exports['qb-menu']:openMenu(menu)
         end)
@@ -145,7 +197,11 @@ RegisterNetEvent('pengu_gruppe6delivery:OpenGruppe6JobMenu', function(data)
             if not duty then
                 lib.showContext('gruppe6jobmenustart')
             else
-                lib.showContext('gruppe6jobmenustop')
+                if DoingDeliveries then
+                    lib.showContext('gruppe6jobmenustopstop')
+                else
+                    lib.showContext('gruppe6jobmenustopstart')
+                end
             end
         end)
     end
@@ -159,6 +215,9 @@ RegisterNetEvent('pengu_gruppe6delivery:RequestModel', function(model)
 end)
 
 RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
+    if Organizing then
+        Organizing = false
+    end
     TriggerEvent('pengu_gruppe6delivery:Notify', "Go to the vehicle with the marker above it!", "There's an orange marker above the vehicle you are going to use.", "primary", 4000)
     local vehicle = args["veh"]
     DoingDeliveries = true
@@ -244,6 +303,9 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                     },
                                 }) then Pass = true end
                             end
+                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                            end
                             busy = false
                             while not Pass do
                                 Wait(1)
@@ -299,6 +361,9 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                         clip = 'machinic_loop_mechandplayer'
                                     },
                                 }) then Pass = true end
+                            end
+                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                             end
                             busy = false
 
@@ -362,6 +427,9 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                 },
                             }) then Pass = true end
                         end
+                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        end
                         busy = false
 
                         while not Pass do
@@ -419,6 +487,9 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                     clip = 'machinic_loop_mechandplayer'
                                 },
                             }) then Pass = true end
+                        end
+                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
                         while not Pass do
@@ -518,6 +589,9 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                 },
                             }) then Pass = true end
                         end
+                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        end
                         busy = false
                         while not Pass do
                             Wait(1)
@@ -574,6 +648,9 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                     clip = 'machinic_loop_mechandplayer'
                                 },
                             }) then Pass = true end
+                        end
+                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
 
@@ -635,6 +712,9 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                 clip = 'machinic_loop_mechandplayer'
                             },
                         }) then Pass = true end
+                    end
+                    if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                        StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                     end
                     busy = false
 
@@ -699,6 +779,9 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                         clip = 'machinic_loop_mechandplayer'
                                     },
                                 }) then Pass = true end
+                            end
+                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                             end
                             busy = false
                             while not Pass do

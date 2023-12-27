@@ -41,3 +41,25 @@ Config.MoneyPerBagMin,Config.MoneyPerBagMax = 100,300
 
 
 Config.MinWaitTime, Config.MaxWaitTime = 5000, 15000
+
+
+
+-- Organizer Job
+
+Config.OrganizerLocations = {
+    { coords = vector4(8.25, -658.0, 33.45, 335.71), width = 3, length = 1, height = 1, active = false },
+    { coords = vector4(2.74, -659.47, 33.45, 93.25), width = 3, length = 1, height = 1, active = false },
+}
+
+Config.OrganizerGuyCoords = vector4(4.39, -656.41, 33.45, 165.4)
+
+Config.OrganizerPed = {
+    Coords = vector4(4.39, -656.41, 32.45, 165.4),
+    Label = "Kyle From Gruppe 6",
+    Model = 'mp_s_m_armoured_01',
+    Icon = 'fas fa-briefcase',
+}
+
+Config.OrganizerMarker = true
+Config.MoneyPerOrganizedMin,Config.MoneyPerOrganizedMax = 300,400
+Config.MinOrganizeWaitTime, Config.MaxOrganizeWaitTime = 2000, 6500

@@ -4,28 +4,35 @@ local Vehicles = {}
 
 -- Set Duty
 
-RegisterNetEvent('pengu_gruppe6delivery:RecievePaycheck', function(TotalBags)
+RegisterNetEvent('pengu_gruppe6delivery:RecievePaycheck', function(TotalBags, TotalOrganized)
     local Player = QBCore.Functions.GetPlayer(source)
     local Amount = 0
     for i=1, TotalBags do
         Amount = Amount + math.random(Config.MoneyPerBagMin,Config.MoneyPerBagMax)
     end
+    for i=1, TotalOrganized do
+        Amount = Amount + math.random(Config.MoneyPerOrganizedMin,Config.MoneyPerOrganizedMax)
+    end
     Player.Functions.AddMoney(Config.MoneyType, Amount, "Gruppe 6 Deliveries")
-    TriggerClientEvent('pengu_gruppe6delivery:Notify', source, "You've recieved $"..Amount.." from Gruppe 6!", "You've delivered "..TotalBags.." bags today!", "primary", 4000)
+    TriggerClientEvent('pengu_gruppe6delivery:Notify', source, "You've recieved $"..Amount.." from Gruppe 6!", nil, "primary", 4000)
 end)
 
 
 RegisterNetEvent('pengu_gruppe6delivery:ToggleIsOnDuty', function()
     if Working[source] then
         Working[source] = false
-
-        TriggerEvent('pengu_gruppe6delivery:DeleteVehicle', source)
+        if Vehicles[source] then
+            TriggerEvent('pengu_gruppe6delivery:DeleteVehicle', source)
+        end
         TriggerClientEvent('pengu_gruppe6delivery:StopDeliveries', source)
+        Working[source] = nil
     else
         Working[source] = true
-
-        TriggerEvent('pengu_gruppe6delivery:SpawnVehicle', source)
     end
+end)
+
+RegisterNetEvent('pengu_gruppe6delivery:StartFirstDelivery', function()
+    TriggerEvent('pengu_gruppe6delivery:SpawnVehicle', source)
 end)
 
 
@@ -55,13 +62,16 @@ AddEventHandler('onResourceStop', function(resource)
     end
 end)
 
-RegisterNetEvent('pengu_gruppe6delivery:DeleteVehicle', function(source)
-    DeleteEntity(Vehicles[source])
-    Vehicles[source] = nil
+RegisterNetEvent('pengu_gruppe6delivery:DeleteVehicle', function(data)
+    local source = source or data
+    if Vehicles[source] then
+        DeleteEntity(Vehicles[source])
+        Vehicles[source] = nil    
+    end
 end)
 
 
-RegisterNetEvent('pengu_gruppe6delivery:SpawnVehicle', function(source)
+RegisterNetEvent('pengu_gruppe6delivery:SpawnVehicle', function()
     local vec = Config.VehicleSpawns[math.random(1, #Config.VehicleSpawns)]
     local model = Config.Vehicle
     local plate = "GRUP"..source
