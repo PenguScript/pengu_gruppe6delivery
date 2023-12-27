@@ -742,7 +742,7 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
             coords = Config.DropSpot,
             size = vector3(1.5,2,1),
             rotation = 0.0,
-            debug = true,
+            debug = false,
 
             options = {
                 {
