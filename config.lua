@@ -5,6 +5,8 @@ Config.Target = 'ox' -- 'qb' or 'ox'
 Config.Menu = 'ox' -- 'qb' or 'ox'
 Config.Progressbar = 'ox' -- 'qb' or 'ox'
 
+Config.FuelResource = 'LegacyFuel'
+
 Config.StartDeliveryPed = {
     Coords = vector4(-4.22, -659.18, 32.48, 183.34),
     Label = "Jimmy From Gruppe 6",
