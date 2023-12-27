@@ -223,12 +223,12 @@ RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
     DoingDeliveries = true
     TriggerEvent("vehiclekeys:client:SetOwner", args["plate"])
     exports[Config.FuelResource]:SetFuel(vehicle, 100)
-    while not IsPedSittingInAnyVehicle(GetPlayerPed(-1)) and DoingDeliveries == true do
+    while not IsPedSittingInAnyVehicle(cache.ped or PlayerPedId()) and DoingDeliveries == true do
         DrawMarker(2, args["vec"].x, args["vec"].y, args["vec"].z+3.65, 0.0,0.0,0.0,0.0,180.0,0.0,1.0,1.0,1.0,255,165,0,70,true,false, 2, true, nil, nil, false)
         Wait(1)
     end
-    if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
-        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', GetVehiclePedIsIn(GetPlayerPed(-1)))
+    if IsPedSittingInAnyVehicle(cache.ped or PlayerPedId()) then
+        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', GetVehiclePedIsIn(cache.ped or PlayerPedId()))
     end
 end)
 
@@ -242,7 +242,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         local BagActive = false
         local location = Config.BagSpawns[math.random(1, #Config.BagSpawns)]
         local BagObject = nil
-        local ped = GetPlayerPed(-1)
+        local ped = cache.ped or PlayerPedId()
         local Pass = false
         destination = AddBlipForCoord(location.xyz)
         SetBlipRoute(destination, true)
@@ -304,8 +304,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                     },
                                 }) then Pass = true end
                             end
-                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                            if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                             end
                             busy = false
                             while not Pass do
@@ -363,8 +363,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                     },
                                 }) then Pass = true end
                             end
-                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                            if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                             end
                             busy = false
 
@@ -428,8 +428,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                 },
                             }) then Pass = true end
                         end
-                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
 
@@ -489,8 +489,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                                 },
                             }) then Pass = true end
                         end
-                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
                         while not Pass do
@@ -536,7 +536,7 @@ end)
 
 RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh)
     local BagsInVehicle = BagsInVehicle
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     local veh = veh
     local model = 'prop_big_bag_01'
 
@@ -590,8 +590,8 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                 },
                             }) then Pass = true end
                         end
-                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
                         while not Pass do
@@ -650,8 +650,8 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                 },
                             }) then Pass = true end
                         end
-                        if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                            StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                        if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                            StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                         end
                         busy = false
 
@@ -714,8 +714,8 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                             },
                         }) then Pass = true end
                     end
-                    if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                        StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                    if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                        StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                     end
                     busy = false
 
@@ -781,8 +781,8 @@ RegisterNetEvent('pengu_gruppe6delivery:SecondHalf', function(BagsInVehicle, veh
                                     },
                                 }) then Pass = true end
                             end
-                            if IsEntityPlayingAnim(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
-                                StopAnimTask(cache.ped or GetPlayerPed(-1), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                            if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
                             end
                             busy = false
                             while not Pass do
