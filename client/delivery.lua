@@ -6,7 +6,7 @@ zoneid = nil
 TotalBagsDelivered = 0
 
 CreateThread(function()
-    local blip = AddBlipForCoord(249.1, -1027.36, 28.28)
+    local blip = AddBlipForCoord(-10.36249, -655.6579, 32.451221)
     SetBlipSprite (blip, 408)
     SetBlipDisplay(blip, 2)
     SetBlipScale  (blip, 0.7)
