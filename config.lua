@@ -8,7 +8,7 @@ Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.FuelResource = 'LegacyFuel'
 
 Config.StartDeliveryPed = {
-    Coords = vector4(-4.22, -659.18, 32.48, 183.34),
+    Coords = vector4(-10.36249, -655.6579, 32.451221, 230.15983),
     Label = "Jimmy From Gruppe 6",
     Model = 'mp_s_m_armoured_01',
     Icon = 'fas fa-briefcase',
