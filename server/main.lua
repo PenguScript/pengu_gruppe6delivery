@@ -46,6 +46,7 @@ QBCore.Functions.CreateCallback('pengu_gruppe6delivery:GetIsOnDuty', function(so
     end
 end)
 
+if Config.Target == 'ox' then
 lib.callback.register("pengu_gruppe6delivery:GetIsOnDuty", function(duty)
     if Working[source] then
         return true
@@ -53,6 +54,7 @@ lib.callback.register("pengu_gruppe6delivery:GetIsOnDuty", function(duty)
         return false
     end
 end)
+end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
