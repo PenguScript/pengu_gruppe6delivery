@@ -4,8 +4,10 @@ Config.Notify = 'ox' -- 'qb' or 'ox' or 'none'
 Config.Target = 'ox' -- 'qb' or 'ox'
 Config.Menu = 'ox' -- 'qb' or 'ox'
 Config.Progressbar = 'ox' -- 'qb' or 'ox'
+Config.Inventory = 'ox' -- 'qb' or 'ox'
+Config.Skillcheck = 'ox' -- 'ps' or 'ox' or 'qb' or false (set to false to use)
 
-Config.FuelResource = 'LegacyFuel'
+Config.FuelResource = 'qb_tk_gasstations'
 
 Config.StartDeliveryPed = {
     Coords = vector4(-4.22, -659.18, 32.48, 183.34),
@@ -13,6 +15,9 @@ Config.StartDeliveryPed = {
     Model = 'mp_s_m_armoured_01',
     Icon = 'fas fa-briefcase',
 }
+
+Config.BagItemName = 'cash_bag'
+Config.InkedItemName = 'inked_cash_bag'
 
 Config.Vehicle = 'stockade'
 
@@ -29,9 +34,10 @@ Config.VehicleSpawns = {
 }
 Config.MinBagsPerDestination, Config.MaxBagsPerDestination = 1,4
 Config.BagSpawns = {
-    vector4(234.72, 209.21, 104.39, 161.51),
-    vector4(929.34, 55.75, 80.1, 65.93),
+    --[[vector4(234.72, 209.21, 104.39, 161.51),
+    vector4(929.34, 55.75, 80.1, 65.93),]]
     -- ADD MORE IN THE SAME FORMAT
+    vector4(-12.45, -678.57, 32.34, 206.6)
 }
 
 Config.DropSpot = vector3(-9.58, -654.66, 32.91)
@@ -39,7 +45,8 @@ Config.DropSpot = vector3(-9.58, -654.66, 32.91)
 
 
 Config.MoneyType = 'bank'
-Config.MoneyPerBagMin,Config.MoneyPerBagMax = 100,300
+Config.MoneyPerBagMin = 100
+Config.MoneyPerBagMax = 300
 
 
 Config.MinWaitTime, Config.MaxWaitTime = 5000, 15000
@@ -65,3 +72,19 @@ Config.OrganizerPed = {
 Config.OrganizerMarker = true
 Config.MoneyPerOrganizedMin,Config.MoneyPerOrganizedMax = 300,400
 Config.MinOrganizeWaitTime, Config.MaxOrganizeWaitTime = 2000, 6500
+
+
+
+Config.RobberySettings = {
+    StockadeModels = {
+        'stockade'
+    },
+    ThermiteParticle = 'proj_flare_trail',
+    ExplosionPaticle = 'exp_grd_grenade_lod',
+    WaitTimeForThermite = 10000,
+    ThermiteItemName = 'thermite',
+    IgnitionItemName = 'lighter',
+    MinBags = 2, -- ONLY NPC STOCKADES
+    MaxBags = 5, -- ONLY NPC STOCKADES
+}
+
