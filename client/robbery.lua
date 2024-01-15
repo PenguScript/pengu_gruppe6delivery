@@ -180,18 +180,31 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                     TriggerEvent('pengu_gruppe6delivery:Notify', "Hack the ink bomb!", "Or else your stolen money will be useless!", "primary", 6000)
                     local Difficulties = {}
                     Wait(3000)
-                    for i=1, BagsToSteal do
-                        Difficulties[#Difficulties+1] = "easy"
-                    end
-                    if lib.skillCheck(Difficulties, {"e"}) then
-                        TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
-                        TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
 
-                    else
-                        TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
-                        TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
+                    if Config.SkillCheck == 'ox' then
+                        for i=1, BagsToSteal do
+                            Difficulties[#Difficulties+1] = "easy"
+                        end
+                        if lib.skillCheck(Difficulties, {"e"}) then
+                            TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
+                            TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
+    
+                        else
+                            TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
+                            TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
+    
+                        end
+                    elseif Config.SkillCheck == 'ps' then
+                        exports['ps-ui']:Circle(function(success)
+                            if success then
+                                TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
+                                TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
+                        	else
+                        		TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
+                                TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
+                        	end
+                        end, BagsToSteal, 20) -- NumberOfCircles, MS
 
-                    end
                 
 
 
