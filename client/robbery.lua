@@ -181,7 +181,7 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                     local Difficulties = {}
                     Wait(3000)
 
-                    if Config.SkillCheck == 'ox' then
+                    if Config.Skillcheck == 'ox' then
                         for i=1, BagsToSteal do
                             Difficulties[#Difficulties+1] = "easy"
                         end
@@ -194,7 +194,7 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                             TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
     
                         end
-                    elseif Config.SkillCheck == 'ps' then
+                    elseif Config.Skillcheck == 'ps' then
                         exports['ps-ui']:Circle(function(success)
                             if success then
                                 TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
