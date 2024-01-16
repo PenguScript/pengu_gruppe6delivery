@@ -204,7 +204,7 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                                 TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
                         	end
                         end, BagsToSteal, 20) -- NumberOfCircles, MS
-
+                    end
                 
 
 
