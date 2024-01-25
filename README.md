@@ -1,4 +1,4 @@
-Should be drag and drop, add a few more locations and have fun!
+# HIGHLY RECOMMENDED TO GO TO V1.0.3 IF YOU DON'T HAVE OX_INVENTORY
 
 Discord for Support: https://discord.gg/AS7U5GK4TE
 
