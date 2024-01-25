@@ -28,6 +28,14 @@ CreateThread(function()
     end
 end)
 
+local function OpenTrunk(plate)
+    if Config.Inventory == 'qb' then
+        TriggerServerEvent('inventory:server:OpenInventory', 'trunk', plate)
+    elseif Config.Inventory == 'ox' then
+        exports.ox_inventory:openInventory('trunk', plate)
+    end
+end
+
 RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
     local HasItems = false
     local coords = GetEntityCoords(cache.ped or PlayerPedId())
@@ -110,6 +118,9 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                         TriggerServerEvent('qb-vehiclekeys:server:setVehLockState', NetworkGetNetworkIdFromEntity(entity), 1)
                         TriggerEvent('pengu_gruppe6delivery:Notify', "The vehicle's electronics are broken!", "You were able to open the doors easily", 'success', 3000)
                         TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
+                        if result then
+                            
+                        end
                         LocalPlayer.state.invBusy = false
                         EnableAllControlActions(0)
                         
@@ -180,30 +191,17 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                     TriggerEvent('pengu_gruppe6delivery:Notify', "Hack the ink bomb!", "Or else your stolen money will be useless!", "primary", 6000)
                     local Difficulties = {}
                     Wait(3000)
+                    for i=1, BagsToSteal do
+                        Difficulties[#Difficulties+1] = "easy"
+                    end
+                    if lib.skillCheck(Difficulties, {"e"}) then
+                        TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
+                        TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
 
-                    if Config.Skillcheck == 'ox' then
-                        for i=1, BagsToSteal do
-                            Difficulties[#Difficulties+1] = "easy"
-                        end
-                        if lib.skillCheck(Difficulties, {"e"}) then
-                            TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
-                            TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
-    
-                        else
-                            TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
-                            TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
-    
-                        end
-                    elseif Config.Skillcheck == 'ps' then
-                        exports['ps-ui']:Circle(function(success)
-                            if success then
-                                TriggerEvent('pengu_gruppe6delivery:Notify', "You defused the ink bomb!", nil, 'success', 3000)
-                                TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'uninked', BagsToSteal)
-                        	else
-                        		TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
-                                TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
-                        	end
-                        end, BagsToSteal, 20) -- NumberOfCircles, MS
+                    else
+                        TriggerEvent('pengu_gruppe6delivery:Notify', "The ink bomb blew up....", nil, 'error', 3000)
+                        TriggerServerEvent('pengu_gruppe6delivery:RobbedItem', 'inked', BagsToSteal)
+
                     end
                 
 

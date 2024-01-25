@@ -5,7 +5,7 @@ Config.Target = 'ox' -- 'qb' or 'ox'
 Config.Menu = 'ox' -- 'qb' or 'ox'
 Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.Inventory = 'ox' -- 'qb' or 'ox'
-Config.Skillcheck = 'ox' -- 'ps' or 'ox' or 'qb' or false (set to false to use)
+Config.Skillcheck = 'ox' -- 'ps' or 'ox'
 
 Config.FuelResource = 'qb_tk_gasstations'
 
