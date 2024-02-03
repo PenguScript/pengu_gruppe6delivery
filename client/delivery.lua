@@ -410,6 +410,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         else
             exports['qb-target']:RemoveTargetEntity({ent, veh})
         end
+        Wait(Config.MinWaitTime, Config.MaxWaitTime)
+        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', veh)
     end
 end)
 
