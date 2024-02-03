@@ -32,7 +32,10 @@ Config.VehicleSpawns = {
     vector4(-2.73, -667.9, 31.34, 187.8),
     vector4(3.22, -669.83, 31.34, 187.06),
 }
-Config.MinBagsPerDestination, Config.MaxBagsPerDestination = 1,4
+
+Config.MinBagsPerDestination = 1 -- minimum bags per location
+Config.MaxBagsPerDestination = 4 -- maximum bags per location
+
 Config.BagSpawns = {
     --[[vector4(234.72, 209.21, 104.39, 161.51),
     vector4(929.34, 55.75, 80.1, 65.93),]]
