@@ -52,7 +52,8 @@ Config.MoneyPerBagMin = 100
 Config.MoneyPerBagMax = 300
 
 
-Config.MinWaitTime, Config.MaxWaitTime = 5000, 15000
+Config.MinWaitTime = 5000
+Config.MaxWaitTime = 15000
 
 
 
@@ -73,8 +74,12 @@ Config.OrganizerPed = {
 }
 
 Config.OrganizerMarker = true
-Config.MoneyPerOrganizedMin,Config.MoneyPerOrganizedMax = 300,400
-Config.MinOrganizeWaitTime, Config.MaxOrganizeWaitTime = 2000, 6500
+
+Config.MoneyPerOrganizedMin = 300
+Config.MoneyPerOrganizedMax = 400
+
+Config.MinOrganizeWaitTime = 2000
+Config.MaxOrganizeWaitTime = 6500
 
 
 
