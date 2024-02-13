@@ -2,6 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 DoingDeliveries = false
 local busy = false
 destination = nil
+hasLoaded = false
 zoneid = nil
 TotalBagsDelivered = 0
 local BagObject = nil
@@ -425,7 +426,9 @@ CreateThread(function()
     while not HasModelLoaded(model) do
         Wait(1)
     end
-
+    while not hasLoaded do
+        Wait(1000)
+    end
     while true do
         if QBCore.Functions.HasItem(Config.BagItemName) or QBCore.Functions.HasItem(Config.InkedItemName) then
             print(BagObject)
@@ -450,6 +453,13 @@ CreateThread(function()
     end
 end)
 
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    hasLoaded = true
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    hasLoaded = false
+end)
 
 CreateThread(function()
 
