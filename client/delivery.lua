@@ -430,8 +430,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                 serverEvent = false,
             })
         elseif Config.Target == 'interact' then
-            exports.interact:AddLocalEntityInteraction({
-                entity = ent,
+            exports.interact:AddModelInteraction({
+                model = model,
                 name = 'Gruppe6BagPickup', -- optional
                 id = 'Gruppe6BagPickup', -- needed for removing interactions
                 distance = Config.InterctView, -- optional
@@ -508,7 +508,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         if Config.Target == 'ox' then
             exports.ox_target:removeLocalEntity({ent, veh})
         elseif Config.Target == 'interact' then
-            exports.interact:RemoveLocalEntityInteraction(ent, 'Gruppe6BagPickup')
+            exports.interact:RemoveModelInteraction(model, 'Gruppe6BagPickup')
         else
             exports['qb-target']:RemoveTargetEntity({ent, veh})
         end
