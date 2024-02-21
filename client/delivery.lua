@@ -627,11 +627,13 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
-                            if destination == nil then
-                                if not QBCore.Functions.HasItem(Config.BagItemName) then
-                                    RandomizeNumDeliveries()
-                                    TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
-                                end
+                            Wait(Config.MinWaitTime, Config.MaxWaitTime)
+                            if not QBCore.Functions.HasItem(Config.BagItemName) then
+                                SetBlipRoute(destination, false)
+                                RemoveBlip(destination)
+                                destination = nil      
+                                RandomizeNumDeliveries()
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
                             end
                         end
                     end
@@ -652,10 +654,6 @@ CreateThread(function()
                     distance = 3,
                     onSelect = function()
                         --DO HERE
-                        SetBlipRoute(destination, false)
-                        RemoveBlip(destination)
-                        destination = nil
-                        if QBCore.Functions.HasItem(Config.BagItemName) then
                             busy = true
                             if Config.Progressbar == 'qb' then
                                 QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
@@ -697,11 +695,12 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
-                            if destination == nil then
-                                if not QBCore.Functions.HasItem(Config.BagItemName) then
-                                    RandomizeNumDeliveries()
-                                    TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
-                                end
+                            if not QBCore.Functions.HasItem(Config.BagItemName) then
+                                SetBlipRoute(destination, false)
+                                RemoveBlip(destination)
+                                destination = nil      
+                                RandomizeNumDeliveries()
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
                             end
                         end
                     end,
@@ -766,11 +765,13 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
-                            if destination == nil then
-                                if not QBCore.Functions.HasItem(Config.BagItemName) then
-                                    RandomizeNumDeliveries()
-                                    TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
-                                end
+                            Wait(Config.MinWaitTime, Config.MaxWaitTime)
+                            if not QBCore.Functions.HasItem(Config.BagItemName) then
+                                SetBlipRoute(destination, false)
+                                RemoveBlip(destination)
+                                destination = nil      
+                                RandomizeNumDeliveries()
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
                             end
                         end
                     end,
