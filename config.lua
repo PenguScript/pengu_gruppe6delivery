@@ -2,8 +2,8 @@ Config = {}
 
 Config.Notify = 'ox' -- 'qb' or 'ox' or 'none'
 Config.Target = 'interact' -- 'qb' or 'ox' or 'interact' [https://github.com/darktrovx/interact]
-Config.InterctView = 7.5
-Config.InteractDist = 2.5
+Config.InterctView = 7.5 -- Only used if Config.Target == 'interact' | Does not affect 'qb' or 'ox'
+Config.InteractDist = 2.5 -- Only used if Config.Target == 'interact' | Does not affect 'qb' or 'ox'
 Config.Menu = 'ox' -- 'qb' or 'ox'
 Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.Inventory = 'ox' -- 'qb' or 'ox'
