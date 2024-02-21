@@ -89,6 +89,21 @@ CreateThread(function()
             event = "pengu_gruppe6delivery:OpenGruppe6OrganizerJobMenu",
             serverEvent = false,
         })
+    elseif Config.Target == 'interact' then
+        exports.interact:AddLocalEntityInteraction({
+            entity = OrganizationPed,
+            name = 'Gruppe6OrgMenu', -- optional
+            id = 'Gruppe6OrgMenu', -- needed for removing interactions
+            distance = Config.InterctView, -- optional
+            interactDst = Config.InterctDist, -- optional
+            offset = vec3(0.0, 0.0, 0.0), -- optional
+            options = {
+                {
+                    label = "Access Gruppe 6 Job Menu",
+                    event = "pengu_gruppe6delivery:OpenGruppe6OrganizerJobMenu",
+                },
+            }
+        })
     end
 
 
@@ -125,9 +140,24 @@ CreateThread(function()
                         icon = "fas fa-box-archive",
                         distance = 3,
                         event = "pengu_gruppe6delivery:OrganizeSafeDepositBoxes",
-                        args = i, 
+                        args = i,
                     }
                 },
+            })
+        elseif Config.Target == 'interact' then
+            exports.interact:AddInteraction({
+                coords = vec3(v.coords.xyz),
+                distance = Config.InterctView, -- optional
+                interactDst = Config.InterctDist, -- optional
+                id = "organizerlocation_"..i, -- needed for removing interactions
+                name = "organizerlocation_"..i, -- optional
+                options = {
+                    {
+                        label = "Organize Safe Deposit Boxes",
+                        event = "pengu_gruppe6delivery:OrganizeSafeDepositBoxes",
+                        args = i,
+                    }
+                }
             })
         end
         Wait(1)
