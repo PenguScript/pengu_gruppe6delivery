@@ -6,6 +6,8 @@ hasLoaded = false
 zoneid = nil
 TotalBagsDelivered = 0
 local BagObject = nil
+local amntDone = nil
+local amntDue = nil
 
 local ped = cache.ped or PlayerPedId()
 
@@ -30,7 +32,12 @@ CreateThread(function()
     EndTextCommandSetBlipName(blip)
 end)
 
+local function RandomizeNumDeliveries()
+    amntDone = 0
+    amntDue = math.random(Config.MinRunsToDone, Config.MaxRunsToDone)
+end
 
+RandomizeNumDeliveries()
 
 RegisterNetEvent('pengu_gruppe6delivery:StopDeliveries', function()
     DoingDeliveries = false
@@ -248,8 +255,9 @@ RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
     end
 end)
 
-
+local vehicle = nil
 RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
+    vehicle = veh
     if DoingDeliveries == true then
         TriggerEvent('pengu_gruppe6delivery:Notify', "Go to the bag on your map!", "Check your map!", "primary", 4000)
         local model = 'prop_big_bag_01'
@@ -412,7 +420,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
             Wait(1)
         end
         TriggerEvent('pengu_gruppe6delivery:Notify', "Good job!", "Now, drop this off safely!", "primary", 4000)
-        SetBlipRoute(destination, false)
+        SetBlipRoute(destination, false)ww
         RemoveBlip(destination)
         destination = nil
         if Config.Target == 'ox' then
@@ -421,7 +429,13 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
             exports['qb-target']:RemoveTargetEntity({ent, veh})
         end
         Wait(Config.MinWaitTime, Config.MaxWaitTime)
-        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', veh)
+        amntDone += 1
+        if amntDone == amntDue then
+            destination = AddBlipForCoord(Config.DropSpot.xyz)
+            SetBlipRoute(destination, true)
+        else
+            TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', veh)
+        end
     end
 end)
 
@@ -529,6 +543,10 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
+                            if destination == nil then
+                                RandomizeNumDeliveries()
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                            end
                         end
                     end
                 }
@@ -547,6 +565,10 @@ CreateThread(function()
                     icon = "fas fa-bars",
                     distance = 3,
                     onSelect = function()
+                        --DO HERE
+                        SetBlipRoute(destination, false)
+                        RemoveBlip(destination)
+                        destination = nil
                         if QBCore.Functions.HasItem(Config.BagItemName) then
                             busy = true
                             if Config.Progressbar == 'qb' then
@@ -589,6 +611,9 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
+                            if destination == nil then
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                            end
                         end
                     end,
                     serverEvent = false,
