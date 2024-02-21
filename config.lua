@@ -9,7 +9,7 @@ Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.Inventory = 'ox' -- 'qb' or 'ox'
 Config.Skillcheck = 'ox' -- 'ps' or 'ox'
 
-Config.FuelResource = 'LegacyFuel'
+Config.FuelResource = 'qb_tk_gasstations'
 
 Config.StartDeliveryPed = {
     Coords = vector4(-4.22, -659.18, 32.48, 183.34),
