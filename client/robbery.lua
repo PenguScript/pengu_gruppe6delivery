@@ -24,6 +24,22 @@ CreateThread(function()
                 event = "pengu_gruppe6delivery:StartRobbery",
                 serverEvent = false,
             })
+        elseif Config.Target == 'interact' then
+            exports.interact:AddModelInteraction({
+                model = v,
+                offset = vec3(0.0, 0.0, 0.0), -- optional
+                bone = 'trunk', -- optional
+                name = 'pengu_truck', -- optional
+                id = 'pengu_truck', -- needed for removing interactions
+                distance = Config.InterctView, -- optional
+                interactDst = Config.InterctDist, -- optional
+                options = {
+                    {
+                        label = 'Break Open Trunk',
+                        event = "pengu_gruppe6delivery:StartRobbery",
+                    },
+                }
+            })
         end
     end
 end)
