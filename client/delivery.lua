@@ -501,7 +501,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         while BagsRemaining ~= 0 do
             Wait(1)
         end
-        TriggerEvent('pengu_gruppe6delivery:Notify', "Good job!", "Now, drop this off safely!", "primary", 4000)
+        TriggerEvent('pengu_gruppe6delivery:Notify', "Wait for the next run!", "We'll notify you shortly", "primary", 4000)
         SetBlipRoute(destination, false)
         RemoveBlip(destination)
         destination = nil
@@ -515,6 +515,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         Wait(Config.MinWaitTime, Config.MaxWaitTime)
         amntDone += 1
         if amntDone == amntDue then
+            TriggerEvent('pengu_gruppe6delivery:Notify', "Change of Plans!", "Drop this run off SAFELY!", "primary", 4000)
             destination = AddBlipForCoord(Config.DropSpot.xyz)
             SetBlipRoute(destination, true)
         else
@@ -627,7 +628,7 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
-                            Wait(Config.MinWaitTime, Config.MaxWaitTime)
+                            Wait(math.random(Config.MinWaitTime, Config.MaxWaitTime))
                             if not QBCore.Functions.HasItem(Config.BagItemName) then
                                 SetBlipRoute(destination, false)
                                 RemoveBlip(destination)
@@ -654,6 +655,7 @@ CreateThread(function()
                     distance = 3,
                     onSelect = function()
                         --DO HERE
+                        if QBCore.Functions.HasItem(Config.BagItemName) then
                             busy = true
                             if Config.Progressbar == 'qb' then
                                 QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
@@ -695,6 +697,7 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
+                            Wait(math.random(Config.MinWaitTime, Config.MaxWaitTime))
                             if not QBCore.Functions.HasItem(Config.BagItemName) then
                                 SetBlipRoute(destination, false)
                                 RemoveBlip(destination)
@@ -765,7 +768,7 @@ CreateThread(function()
                             TotalBagsDelivered += 1
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
-                            Wait(Config.MinWaitTime, Config.MaxWaitTime)
+                            Wait(math.random(Config.MinWaitTime, Config.MaxWaitTime))
                             if not QBCore.Functions.HasItem(Config.BagItemName) then
                                 SetBlipRoute(destination, false)
                                 RemoveBlip(destination)
