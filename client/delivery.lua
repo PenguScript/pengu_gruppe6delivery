@@ -544,8 +544,10 @@ CreateThread(function()
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
                             if destination == nil then
-                                RandomizeNumDeliveries()
-                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                                if not QBCore.Functions.HasItem(Config.BagItemName) then
+                                    RandomizeNumDeliveries()
+                                    TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                                end
                             end
                         end
                     end
@@ -612,7 +614,10 @@ CreateThread(function()
                             TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
                             StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
                             if destination == nil then
-                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                                if not QBCore.Functions.HasItem(Config.BagItemName) then
+                                    RandomizeNumDeliveries()
+                                    TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                                end
                             end
                         end
                     end,
