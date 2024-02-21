@@ -420,7 +420,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
             Wait(1)
         end
         TriggerEvent('pengu_gruppe6delivery:Notify', "Good job!", "Now, drop this off safely!", "primary", 4000)
-        SetBlipRoute(destination, false)ww
+        SetBlipRoute(destination, false)
         RemoveBlip(destination)
         destination = nil
         if Config.Target == 'ox' then
