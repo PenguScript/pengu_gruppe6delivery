@@ -156,6 +156,21 @@ CreateThread(function()
             event = "pengu_gruppe6delivery:OpenGruppe6JobMenu",
             serverEvent = false,
         })
+    elseif Config.Target == 'interact' then
+        exports.interact:AddLocalEntityInteraction({
+            entity = ent,
+            name = 'Gruppe6JobMenu', -- optional
+            id = 'Gruppe6JobMenu', -- needed for removing interactions
+            distance = Config.InterctView, -- optional
+            interactDst = Config.InterctDist, -- optional
+            offset = vec3(0.0, 0.0, 0.0), -- optional
+            options = {
+                {
+                    label = "Access Gruppe 6 Job Menu",
+                    event = "pengu_gruppe6delivery:OpenGruppe6JobMenu",
+                },
+            }
+        })
     end
 
 
@@ -414,6 +429,73 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                 end,
                 serverEvent = false,
             })
+        elseif Config.Target == 'interact' then
+            exports.interact:AddLocalEntityInteraction({
+                entity = ent,
+                name = 'Gruppe6BagPickup', -- optional
+                id = 'Gruppe6BagPickup', -- needed for removing interactions
+                distance = Config.InterctView, -- optional
+                interactDst = Config.InterctDist, -- optional
+                offset = vec3(0.0, 0.0, 0.0), -- optional
+                options = {
+                    {
+                        label = "Pick Up A Bag",
+                        action = function()
+                            if not busy then
+                                busy = true
+                                if Config.Progressbar == 'qb' then
+                                    QBCore.Functions.Progressbar('pickupgruppe6bag', 'Picking Up Bag', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
+                                        disableMovement = true,
+                                        disableCarMovement = true,
+                                        disableMouse = false,
+                                        disableCombat = true,
+                                    }, {
+                                        animDict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+                                        anim = 'machinic_loop_mechandplayer',
+                                    }, {}, {}, function()
+                                        Pass = true
+                                    end, function()
+                                    end)
+                                elseif Config.Progressbar == 'ox' then
+                                    if lib.progressCircle({
+                                        label = "Picking Up Bag",
+                                        duration = 2000,
+                                        position = 'bottom',
+                                        useWhileDead = false,
+                                        canCancel = false,
+                                        disable = {
+                                            car = true,
+                                        },
+                                        anim = {
+                                            dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+                                            clip = 'machinic_loop_mechandplayer'
+                                        },
+                                    }) then Pass = true end
+                                end
+                                busy = false
+        
+                                while not Pass do
+                                    Wait(1)
+                                    print('inpass')
+                                end
+                                Pass = false
+                                print('af pass')
+                                ClearPedTasksImmediately(ped)
+                                --BagObject = CreateObject(model, 0, 0, 0, true, true, true)
+                                TriggerServerEvent('pengu_gruppe6delivery:AddItem', Config.BagItemName)
+                                --AttachEntityToEntity(BagObject, ped, GetPedBoneIndex(ped, 57005), 0.23, -0.01, -0.185, 220.0, 95.0, 70.0, true, true, false, true, 1, true)
+                                BagsRemaining -= 1
+                                if BagsRemaining == 0 then
+                                    DeleteObject(ent)
+                                    TriggerEvent('pengu_gruppe6delivery:Notify', "That's It!", nil, "success", 4000)
+                                else
+                                    TriggerEvent('pengu_gruppe6delivery:Notify', BagsRemaining .. " Bags Left!", "Just a bit more to go!", "primary", 4000)
+                                end
+                            end
+                        end
+                    },
+                }
+            })
         end    
         print(BagsRemaining)
         while BagsRemaining ~= 0 do
@@ -425,6 +507,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         destination = nil
         if Config.Target == 'ox' then
             exports.ox_target:removeLocalEntity({ent, veh})
+        elseif Config.Target == 'interact' then
+            exports.interact:RemoveLocalEntityInteraction(ent, 'Gruppe6BagPickup')
         else
             exports['qb-target']:RemoveTargetEntity({ent, veh})
         end
@@ -623,6 +707,71 @@ CreateThread(function()
                     end,
                     serverEvent = false,
                 }
+            }
+        })
+    elseif Config.Target == 'interact' then
+        zoneid = exports.interact:AddInteraction({
+            coords = vec3(Config.DropSpot.x,Config.DropSpot.y,Config.DropSpot.z),
+            distance = Config.InterctView, -- optional
+            interactDst = Config.InterctDist, -- optional
+            id = 'dropspot', -- needed for removing interactions
+            name = 'dropspot', -- optional
+            options = {
+                 {
+                    label = 'Put Bag Down',
+                    action = function()
+                        --DO HERE
+                        SetBlipRoute(destination, false)
+                        RemoveBlip(destination)
+                        destination = nil
+                        if QBCore.Functions.HasItem(Config.BagItemName) then
+                            busy = true
+                            if Config.Progressbar == 'qb' then
+                                QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
+                                    disableMovement = true,
+                                    disableCarMovement = true,
+                                    disableMouse = false,
+                                    disableCombat = true,
+                                }, {
+                                    animDict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+                                    anim = 'machinic_loop_mechandplayer',
+                                }, {}, {}, function()
+                                    Pass = true
+                                end, function()
+                                end)
+                            elseif Config.Progressbar == 'ox' then
+                                if lib.progressCircle({
+                                    label = "Putting Bag Down",
+                                    duration = 2000,
+                                    position = 'bottom',
+                                    useWhileDead = false,
+                                    canCancel = false,
+                                    disable = {
+                                        car = true,
+                                    },
+                                    anim = {
+                                        dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+                                        clip = 'machinic_loop_mechandplayer'
+                                    },
+                                }) then Pass = true end
+                            end
+                            if IsEntityPlayingAnim(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 3) then
+                                StopAnimTask(cache.ped or PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                            end
+                            busy = false
+                            while not Pass do
+                                Wait(1)
+                            end
+                            Pass = false
+                            TotalBagsDelivered += 1
+                            TriggerServerEvent('pengu_gruppe6delivery:RemoveItem', Config.BagItemName)
+                            StopAnimTask(ped, "missfbi4prepp1", "_bag_walk_garbage_man", 1.0)
+                            if destination == nil then
+                                TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicle)
+                            end
+                        end
+                    end,
+                },
             }
         })
     end
