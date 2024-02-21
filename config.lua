@@ -25,8 +25,8 @@ Config.Vehicle = 'stockade'
 
 Config.Use3DMarker = true
 
-Config.MinRunsToDone = 3
-Config.MaxRunsToDone = 6
+Config.MinRunsToDone = 1
+Config.MaxRunsToDone = 3
 
 Config.VehicleSpawns = {
     vector4(-32.41, -670.52, 31.34, 187.86),
