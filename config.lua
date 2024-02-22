@@ -42,10 +42,16 @@ Config.MinBagsPerDestination = 1 -- minimum bags per location
 Config.MaxBagsPerDestination = 4 -- maximum bags per location
 
 Config.BagSpawns = {
-    --[[vector4(234.72, 209.21, 104.39, 161.51),
-    vector4(929.34, 55.75, 80.1, 65.93),]]
     -- ADD MORE IN THE SAME FORMAT
-    vector4(-12.45, -678.57, 32.34, 206.6)
+    --vector4(-12.45, -678.57, 32.34, 206.6) --for test 
+    ---all banks
+    vector4(240.46197, 225.80572, 105.2869, 165.49162),
+    vector4(-354.3628, -53.91887, 48.03651, 247.68736),
+    vector4(-1212.502, -336.1436, 36.780963, 292.10525),
+    vector4(-2957.656, 480.38278, 14.697005, 333.28643),
+    vector4(146.06887, -1044.604, 28.368, 242.84365),
+    vector4(1177.191, 2711.5874, 37.087966, 78.774597),
+    vector4(-106.9418, 6468.7456, 30.626705, 51.005558),
 }
 
 Config.DropSpot = vector3(-9.58, -654.66, 32.91)
