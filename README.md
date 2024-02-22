@@ -1,12 +1,13 @@
 # GIVE FEEDBACK IN DISCORD!
 
 ## Dependency
-
 * [interact ](https://github.com/darktrovx/interact)
 * [qb-target](https://github.com/PenguScript/pengu_gruppe6delivery/edit/main/README.md)
-
-Discord for Support: https://discord.gg/AS7U5GK4TE
-
+* 
+# DISCORD
+* [Discord for Support](https://discord.gg/AS7U5GK4TE)
+* 
+# Preview
 * [Preview](https://youtu.be/ZaJHcvP2kDE)
 
 
