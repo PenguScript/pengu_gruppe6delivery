@@ -1,8 +1,14 @@
 # GIVE FEEDBACK IN DISCORD!
 
-Discord for Support: https://discord.gg/AS7U5GK4TE
-
-Preview: https://youtu.be/ZaJHcvP2kDE 
+## Dependency
+* [interact ](https://github.com/darktrovx/interact)
+* [qb-target](https://github.com/PenguScript/pengu_gruppe6delivery/edit/main/README.md)
+* 
+# DISCORD
+* [Discord for Support](https://discord.gg/AS7U5GK4TE)
+* 
+# Preview
+* [Preview](https://youtu.be/ZaJHcvP2kDE)
 
 
 ## ox_inventory Items
