@@ -259,7 +259,7 @@ RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
     TriggerEvent('pengu_gruppe6delivery:Notify', "Go to the vehicle with the marker above it!", "There's an orange marker above the vehicle you are going to use.", "primary", 4000)
     local vehicle = args["veh"]
     DoingDeliveries = true
-    TriggerEvent("vehiclekeys:client:SetOwner", args["plate"])
+    Config.GetPlate(args["plate"])
     while not IsPedSittingInAnyVehicle(cache.ped or PlayerPedId()) and DoingDeliveries == true do
         DrawMarker(2, args["vec"].x, args["vec"].y, args["vec"].z+3.65, 0.0,0.0,0.0,0.0,180.0,0.0,1.0,1.0,1.0,255,165,0,70,true,false, 2, true, nil, nil, false)
         Wait(1)
