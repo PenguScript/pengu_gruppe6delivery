@@ -9,7 +9,11 @@ Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.Inventory = 'ox' -- 'qb' or 'ox'
 Config.Skillcheck = 'ox' -- 'ps' or 'ox'
 
-Config.FuelResource = 'qb_tk_gasstations'
+Config.FuelResource = 'LegacyFuel'
+
+Config.GiveKeys = function(plate)
+    TriggerEvent("qb-vehiclekeys:server:AcquireVehicleKeys", plate)
+end
 
 Config.StartDeliveryPed = {
     Coords = vector4(-4.22, -659.18, 32.48, 183.34),
