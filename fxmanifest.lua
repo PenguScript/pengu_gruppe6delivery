@@ -19,7 +19,8 @@ client_script {
 	'@PolyZone/ComboZone.lua',
 	'client/delivery.lua',
 	'client/organize.lua',
-	'client/robbery.lua'
+	'client/robbery.lua',
+	'config_cl.lua'
 }
 server_script 'server/main.lua'
 
