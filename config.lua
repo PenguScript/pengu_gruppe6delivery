@@ -11,6 +11,9 @@ Config.Skillcheck = 'ox' -- 'ps' or 'ox'
 
 Config.FuelResource = 'LegacyFuel'
 
+-- Looking for GiveKeys config?
+-- Check: /config_cl.lua
+
 Config.StartDeliveryPed = {
     Coords = vector4(-4.22, -659.18, 32.48, 183.34),
     Label = "Jimmy From Gruppe 6",
