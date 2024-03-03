@@ -1,3 +1,3 @@
 Config.GiveKeys = function(plate)
-    TriggerEvent("qb-vehiclekeys:server:AcquireVehicleKeys", plate)
+    TriggerServerEvent("qb-vehiclekeys:server:AcquireVehicleKeys", plate)
 end
