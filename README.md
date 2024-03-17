@@ -1,12 +1,12 @@
 # GIVE FEEDBACK IN DISCORD!
 
 ## Dependency
-* [interact ](https://github.com/darktrovx/interact)
-* [qb-target](https://github.com/PenguScript/pengu_gruppe6delivery/edit/main/README.md)
-* 
+* [interact](https://github.com/darktrovx/interact) / [qb-target](https://github.com/qbcore-framework/qb-target) / [ox_target](https://github.com/overextended/ox_target)
+* [ox_lib](https://github.com/overextended/ox_lib) / [qb-menu](https://github.com/qbcore-framework/qb-menu)
+  
 # DISCORD
 * [Discord for Support](https://discord.gg/AS7U5GK4TE)
-* 
+  
 # Preview
 * [Preview](https://youtu.be/ZaJHcvP2kDE)
 
