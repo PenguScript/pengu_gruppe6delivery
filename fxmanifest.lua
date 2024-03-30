@@ -20,7 +20,6 @@ client_script {
 	'client/delivery.lua',
 	'client/organize.lua',
 	'client/robbery.lua',
-	'config_cl.lua'
 }
 server_script 'server/main.lua'
 
