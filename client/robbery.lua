@@ -58,7 +58,6 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
     local entity = args.entity
     local BagsToSteal = 0
     local VehicleDestroyed = false
-    print(GetVehicleEngineHealth(entity))
     if not Robbing then
         if GetPedInVehicleSeat(entity, -1) and GetPedInVehicleSeat(entity, 0) == 0 then 
             if not HasAnimDictLoaded('anim_h eist@hs3f@ig13_thermal_charge@thermal_charge@male@') then  
@@ -124,12 +123,10 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                         Wait(1)
                         time=time+1
                         if time == 5000.0 then
-                            print('broken')
                             ClearPedTasksImmediately(ped)
                             break
                         end
                     end
-                    print('lol')
                     if GetVehicleBodyHealth(entity) == 0.0 and GetVehicleEngineHealth(entity) < 0.0 then
                         TriggerServerEvent('qb-vehiclekeys:server:setVehLockState', NetworkGetNetworkIdFromEntity(entity), 1)
                         TriggerEvent('pengu_gruppe6delivery:Notify', "The vehicle's electronics are broken!", "You were able to open the doors easily", 'success', 3000)
@@ -176,6 +173,8 @@ RegisterNetEvent('pengu_gruppe6delivery:StartRobbery', function(args)
                     SetEntityCollision(bag, false, true)
 
                     SetEntityCollision(thermite, false, true)
+
+                    TriggerServerEvent('police:server:policeAlert', "Gruppe 6 Truck Being Robbed!")
 
 
                     Wait(GetAnimDuration("anim_heist@hs3f@ig13_thermal_charge@thermal_charge@male@", "thermal_charge_male_camera") * 1000) -- waiting for the scene to finish
