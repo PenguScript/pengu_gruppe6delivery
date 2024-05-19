@@ -9,7 +9,6 @@ QBCore.Functions.CreateUseableItem(Config.BagItemName, function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName(item.name) then
-        print('opening')
     end
 end)
 
@@ -98,7 +97,6 @@ end)
 
 RegisterNetEvent('pengu_gruppe6delivery:PutBagIntoTrunk', function(plate)
     local Player = QBCore.Functions.GetPlayer(source)
-    print(plate)
     if Config.Inventory == 'ox' then
         local vehicleInventoryId = 'trunk'..plate
         local vehicleInventory = exports.ox_inventory:GetInventory(vehicleInventoryId, false)
@@ -106,7 +104,7 @@ RegisterNetEvent('pengu_gruppe6delivery:PutBagIntoTrunk', function(plate)
             exports.ox_inventory:RemoveItem(source, Config.BagItemName, 1)
             local success, response = exports.ox_inventory:AddItem(vehicleInventory.id, Config.BagItemName, 1)
             if not success then
-                return print(response)
+                return
             end
         end
         Vehicles[source].bags = Vehicles[source].bags + 1
@@ -136,7 +134,6 @@ end)
 
 QBCore.Functions.CreateCallback('pengu_gruppe6delivery:GetBagsFromVehicle', function(source, cb, model)
     model = NetworkGetEntityFromNetworkId(model)
-    print(RobbedVehicles[model])
     if RobbedVehicles[model] then
         cb('robbed')
     end
@@ -147,7 +144,6 @@ QBCore.Functions.CreateCallback('pengu_gruppe6delivery:GetBagsFromVehicle', func
             break
         end
     end
-    print('lol')
     RobbedVehicles[model] = model
     cb(false)
 end)
