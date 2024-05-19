@@ -295,13 +295,11 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         local ent = nil
         repeat
             ent = CreateObject(model, location, false, false, false)
-            print('process')
         until ent
         Wait(500)
         FreezeEntityPosition(ent, true)
         SetEntityInvincible(ent, true)
         SetEntityCanBeDamaged(ent, false)
-        print(BagsRemaining)
         if Config.Target == 'qb' then
             exports['qb-target']:AddTargetEntity(ent, {
                 options = {
@@ -347,10 +345,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
     
                             while not Pass do
                                 Wait(1)
-                                print('inpass')
                             end
                             Pass = false
-                            print('af pass')
                             ClearPedTasksImmediately(ped)
                             --BagObject = CreateObject(model, 0, 0, 0, true, true, true)
                             TriggerServerEvent('pengu_gruppe6delivery:AddItem', Config.BagItemName)
@@ -410,10 +406,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
 
                         while not Pass do
                             Wait(1)
-                            print('inpass')
                         end
                         Pass = false
-                        print('af pass')
                         ClearPedTasksImmediately(ped)
                         --BagObject = CreateObject(model, 0, 0, 0, true, true, true)
                         TriggerServerEvent('pengu_gruppe6delivery:AddItem', Config.BagItemName)
@@ -476,10 +470,8 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
         
                                 while not Pass do
                                     Wait(1)
-                                    print('inpass')
                                 end
                                 Pass = false
-                                print('af pass')
                                 ClearPedTasksImmediately(ped)
                                 --BagObject = CreateObject(model, 0, 0, 0, true, true, true)
                                 TriggerServerEvent('pengu_gruppe6delivery:AddItem', Config.BagItemName)
@@ -497,7 +489,6 @@ RegisterNetEvent('pengu_gruppe6delivery:RecieveDestinationOne', function(veh)
                 }
             })
         end    
-        print(BagsRemaining)
         while BagsRemaining ~= 0 do
             Wait(1)
         end
@@ -539,11 +530,9 @@ CreateThread(function()
     end
     while true do
         if QBCore.Functions.HasItem(Config.BagItemName) or QBCore.Functions.HasItem(Config.InkedItemName) then
-            print(BagObject)
             if not BagObject then
                 BagObject = CreateObject(model, 0, 0, 0, true, true, true)
             end
-            print(IsEntityAttached(BagObject))
             if not IsEntityAttached(BagObject) then
                 AttachEntityToEntity(BagObject, ped, GetPedBoneIndex(ped, 57005), 0.23, -0.01, -0.185, 220.0, 95.0, 70.0, true, true, false, true, 1, true)
             end
