@@ -9,7 +9,7 @@ Config.Progressbar = 'ox' -- 'qb' or 'ox'
 Config.Inventory = 'ox' -- 'qb' or 'ox'
 Config.Skillcheck = 'ox' -- 'ps' or 'ox'
 
-Config.FuelResource = 'LegacyFuel' -- Let to '' to use statebag fuel (ox_fuel/Renewed-Fuel)
+Config.FuelResource = 'LegacyFuel' -- Set to '' to use statebag fuel (ox_fuel/Renewed-Fuel)
 
 -- Looking for GiveKeys config?
 -- Check: config_cl.lua
