@@ -265,12 +265,13 @@ RegisterNetEvent('pengu_gruppe6delivery:StartFirstJob', function(args)
         Wait(1)
     end
     if IsPedSittingInAnyVehicle(cache.ped or PlayerPedId()) then
+        local vehicleEntity = GetVehiclePedIsIn(cache.ped or PlayerPedId())
         if Config.FuelResource == '' then
-            Entity(cache.vehicle).state.fuel = 100
+            Entity(vehicleEntity).state.fuel = 100
         else
-            exports[Config.FuelResource]:SetFuel(GetVehiclePedIsIn(cache.ped or PlayerPedId()), 100)
+            exports[Config.FuelResource]:SetFuel(vehicleEntity, 100)
         end
-        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', GetVehiclePedIsIn(cache.ped or PlayerPedId()))
+        TriggerEvent('pengu_gruppe6delivery:RecieveDestinationOne', vehicleEntity)
     end
 end)
 
