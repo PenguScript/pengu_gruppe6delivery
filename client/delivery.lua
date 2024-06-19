@@ -581,6 +581,7 @@ CreateThread(function()
                 label = 'Put Bag Down',
                 action = function()
                         if QBCore.Functions.HasItem(Config.BagItemName) then
+                            if busy then return end
                             busy = true
                             if Config.Progressbar == 'qb' then
                                 QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
@@ -650,6 +651,7 @@ CreateThread(function()
                     onSelect = function()
                         --DO HERE
                         if QBCore.Functions.HasItem(Config.BagItemName) then
+                            if busy then return end
                             busy = true
                             if Config.Progressbar == 'qb' then
                                 QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
@@ -721,6 +723,7 @@ CreateThread(function()
                         RemoveBlip(destination)
                         destination = nil
                         if QBCore.Functions.HasItem(Config.BagItemName) then
+                            if busy then return end
                             busy = true
                             if Config.Progressbar == 'qb' then
                                 QBCore.Functions.Progressbar('pickupgruppe6bag', 'Putting Bag Down', 2000, false, false, { -- Name | Label | Time | useWhileDead | canCancel
