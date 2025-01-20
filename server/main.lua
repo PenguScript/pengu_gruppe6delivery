@@ -122,6 +122,7 @@ RegisterNetEvent('pengu_gruppe6delivery:RemoveItemFromTrunk', function(plate, it
 end)
 
 RegisterNetEvent('pengu_gruppe6delivery:AddItem', function(itemName)
+    if not Working[source] then return end
     local Player = QBCore.Functions.GetPlayer(source)
     if Config.Inventory == 'ox' then
         if exports.ox_inventory:CanCarryAmount(source, Config.BagItemName) then
@@ -149,6 +150,7 @@ QBCore.Functions.CreateCallback('pengu_gruppe6delivery:GetBagsFromVehicle', func
 end)
 
 RegisterNetEvent('pengu_gruppe6delivery:RemoveItem', function(itemName)
+    if not Working[source] then return end
     local Player = QBCore.Functions.GetPlayer(source)
     if Config.Inventory == 'ox' then
         local slot = exports.ox_inventory:GetSlotIdWithItem(source, itemName)
